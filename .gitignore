@@ -1,0 +1,21 @@
+terraform/
+Desafio//
+
+# Excluir arquivos de estado do Terraform
+*.tfstate
+*.tfstate.*
+
+# Excluir configurações de backup do Terraform
+*.backup
+*.log
+
+# Excluir configurações locais
+.terraform/
+.terraform.lock.hcl
+
+# Excluir arquivos sensíveis (chaves privadas, etc.)
+*.pem
+*.key
+
+# Excluir outros arquivos temporários
+crash.log
