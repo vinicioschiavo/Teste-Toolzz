@@ -14,7 +14,7 @@ env:
   NAMESPACE: flowise
   IMAGE_REPO_NAME: flowise
   IMAGE_TAG: ${{ github.run_number }}
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Flowise/docker/Dockerfile
+          file: flowise/docker/Dockerfile
           push: true
           tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.IMAGE_REPO_NAME }}:${{ env.IMAGE_TAG }}
           
