@@ -13,6 +13,8 @@ env:
   EKS_CLUSTER_NAME: vi-cluster
   NAMESPACE: flowise
   IMAGE_REPO_NAME: flowise
+  IMAGE_TAG: ${{ github.run_number }}
+  
 jobs:
   build:
     runs-on: ubuntu-latest
