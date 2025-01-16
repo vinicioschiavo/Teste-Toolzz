@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: flowise
-          image: <AWS_ACCOUNT_ID>.dkr.ecr.$AWS_REGION.amazonaws.com/flowise-backend:latest
+          image: docker.io/flowiseai/flowise:2.2.3
           ports:
             - containerPort: 3000
 ---
