@@ -49,7 +49,9 @@ Visão Geral
  
  - "kubectl config set-context arn:aws:eks:us-west-2:399679827371:cluster/vi-cluster --namespace flowise"
 
-2 - Uma vez feito isso pode se passar pra proxima etapa.
+   ![Image](https://github.com/user-attachments/assets/a2d07889-e614-405a-a7a0-07cacb2ed677)
+
+   ![Image](https://github.com/user-attachments/assets/c379e539-0a3e-4fa0-a9f9-6426e6b160f8)
 
 
 ## 3. Criar fluxo de CI/CD
