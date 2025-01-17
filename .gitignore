@@ -1,5 +1,5 @@
-terraform/
-Desafio//
+
+desafio.md
 
 # Excluir arquivos de estado do Terraform
 *.tfstate
