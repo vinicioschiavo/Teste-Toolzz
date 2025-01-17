@@ -54,7 +54,7 @@ Este arquivo define um pipeline CI/CD no GitHub Actions para compilação, envio
 
  Gatilhos
 O pipeline é ativado pelos seguintes eventos:
-#imagem
+![Image](https://github.com/user-attachments/assets/6b829786-0813-4225-b243-8294e3654978)
 Isso garante que o pipeline execute quando houver atualizações no branch principal.
 
 Variáveis de Ambiente
