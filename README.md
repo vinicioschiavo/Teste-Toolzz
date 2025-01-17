@@ -146,6 +146,10 @@ Este job depende do job "build" e realiza as seguintes etapas:
 
 ![Image](https://github.com/user-attachments/assets/d9c88b6d-8c05-4456-bb1b-440e6713fefe)
 
+## 6. Diagrama da arquitetura.
+
+![Image](https://github.com/user-attachments/assets/be9b3fc6-dad2-452c-88ee-30c4ca57c033)
+
 
 
 
