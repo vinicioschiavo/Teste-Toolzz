@@ -1,20 +1,112 @@
-# Teste-Toolzz
-Teste para vaga de devops para a empresa Toolzz
-
-# Comandos para instalar o Helm
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
-
-# Instalar o kubectl
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+# test-toolzz
+Projeto referente ao desafio para vaga de DevOps Pleno na test-toolzz.
 
 
-## Comando para instalar ou atualizar o flowise via helm
-helm repo add cowboysysop https://cowboysysop.github.io/charts/
-helm upgrade --install flowise cowboysysop/flowise --namespace flowise
+## 1. Criar infraestrutura via terraform
+![terraform](imagens/terraform.png)
+Esta configuração do Terraform configura uma infraestrutura AWS com os seguintes componentes:
 
-aws eks update-kubeconfig --name vi-cluster
-kubectl create namespace flowise
-kubectl config set-context arn:aws:eks:us-west-2:399679827371:cluster/vi-cluster --namespace "default ou flowise" para mudar
+Visão Geral
+
+1 - Rede:
+
+ - Uma VPC com sub-redes públicas e privadas.
+
+ - Gateway de Internet para sub-redes públicas.
+
+ - Gateway NAT para sub-redes privadas.
+
+ - Tabelas de rotas para roteamento de tráfego de internet.
+
+2 - Recursos de Computação:
+
+ - Instâncias EC2 públicas e privadas.
+
+3 - EKS (Elastic Kubernetes Service):
+
+ - Cluster EKS e Grupo de Nós com funções e políticas IAM.
+
+4 - RDS (Relational Database Service):
+
+ - Instância de banco de dados PostgreSQL com grupo de sub-rede associado e grupo de segurança.
+
+5 - Armazenamento:
+
+ - Bucket S3 para backups.
+
+ - Repositório ECR (Elastic Container Registry) para imagens Docker.
+
+
+## 1. Criar fluxo de CI/CD
+![ci-cd](imagens/ci-cd.png)
+
+Visão Geral
+
+Este arquivo define um pipeline CI/CD no GitHub Actions para compilação, envio e implantação de uma aplicação no cluster EKS (Elastic Kubernetes Service). Ele abrange os seguintes estágios:
+
+1 - Gatilhos: Configuração para execução em push ou pull request para o branch main.
+
+2 - Variáveis de Ambiente: Configuração das variáveis necessárias para a execução do pipeline.
+
+3 - Jobs:
+ - Build: Compilação e envio da imagem Docker para o Amazon ECR.
+ - Deploy: Implantação da aplicação no Kubernetes.
+
+ Gatilhos
+O pipeline é ativado pelos seguintes eventos:
+#imagem
+Isso garante que o pipeline execute quando houver atualizações no branch principal.
+
+Variáveis de Ambiente
+
+As variáveis configuradas para o pipeline incluem:
+
+ - AWS_REGION: Região da AWS (us-west-2).
+
+ - EKS_CLUSTER_NAME: Nome do cluster EKS (vi-cluster).
+
+ - NAMESPACE: Namespace no Kubernetes (flowise).
+
+ - IMAGE_REPO_NAME: Nome do repositório de imagens Docker (flowise).
+
+ - IMAGE_TAG: Tag gerada dinamicamente para a imagem Docker baseada no número de execução do GitHub.
+
+Jobs
+
+1. Build
+Este job realiza as seguintes etapas:
+ - Checkout do Código:
+ #imagem
+
+ Configuração do Docker:
+ #imagem
+
+ Configuração do Docker:
+ #imagem
+
+ Login no Amazon ECR:
+ #imagem
+
+ Build e Push da Imagem Docker:
+ #imagem
+
+2. Deploy
+Este job depende do job "build" e realiza as seguintes etapas:
+
+ - Checkout do Código: 
+ #imagem
+
+ - Configuração das Credenciais AWS:
+ #imagem
+
+ - Instalação do Kubectl:
+ #imagem
+
+ - Atualização do Kubeconfig:
+ #imagem
+
+ - Implantação no Kubernetes:
+ #imagem
+
+## 1. Contanerizar flowise usando docker e kubernetes
+![kubernetes](imagens/kubernetes.png)
