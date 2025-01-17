@@ -42,8 +42,11 @@ Visão Geral
 1 - Passo a passo para a criação do Namespaces
  - Uma vez que concluida a criação do ELK via terraform é necessario a criação de um namespace para
  a aplicação poder dar continuidade no projeto.
+
  - "aws eks update-kubeconfig --name vi-cluster"
+
  - "kubectl create namespace flowise"
+ 
  - "kubectl config set-context arn:aws:eks:us-west-2:399679827371:cluster/vi-cluster --namespace flowise"
 
 2 - Uma vez feito isso pode se passar pra proxima etapa.
