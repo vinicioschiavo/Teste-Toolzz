@@ -74,4 +74,4 @@ jobs:
           sed -i "s/AWS_REGION/${{env.AWS_REGION}}/g" kubernetes/k8s-manifest.yml
           sed -i "s/IMAGE_REPO_NAME/${{env.IMAGE_REPO_NAME}}/g" kubernetes/k8s-manifest.yml
           sed -i "s/IMAGE_TAG/${{env.IMAGE_TAG}}/g" kubernetes/k8s-manifest.yml
-          kubectl apply -f kubernetes/k8s-manifest.yaml -n $NAMESPACE
+          kubectl apply -f kubernetes/k8s-manifest.yml -n $NAMESPACE

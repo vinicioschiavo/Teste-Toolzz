@@ -101,8 +101,7 @@ metadata:
 spec:
   selector:
     app: flowise
-    sessionAffinity: None
-    type: ClusterIP
+  type: LoadBalancer
   ports:
     - port: 80
       protocol: TCP
