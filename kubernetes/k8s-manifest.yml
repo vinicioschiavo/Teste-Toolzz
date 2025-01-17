@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flowise
+  namespace: flowise
+  labels:
+    app: flowise
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flowise
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 0
+  template:
+    metadata:
+      name: flowise
+      namespace: nucleus-devops
+      labels:
+        app: flowise
+    spec:
+      containers:
+      - name: flowise
+        image: AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/IMAGE_REPO_NAME:IMAGE_TAG
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            httpHeaders:
+            - name: Host
+              value: localhost
+            path: /ping
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 6
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 240
+        ports:
+          - containerPort: 3000
+            protocol: TCP
+        readinessProbe:
+          failureThreshold: 6
+          httpGet:
+            httpHeaders:
+            - name: Host
+              value: localhost
+            path: /ping
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 6
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 120
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1024Mi
+          requests:
+            cpu: 100m
+            memory: 512Mi
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: flowise-hpa
+  namespace: flowise
+  labels:
+    app: flowise
+spec:
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - resource:
+        name: cpu
+        target:
+          averageUtilization: 75
+          type: Utilization
+      type: Resource
+    - resource:
+        name: memory
+        target:
+          averageUtilization: 75
+          type: Utilization
+      type: Resource
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: flowise
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flowise-svc
+  namespace: flowise
+  labels:
+    app: flowise
+spec:
+  selector:
+    app: flowise
+    sessionAffinity: None
+    type: ClusterIP
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 3000
