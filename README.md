@@ -101,19 +101,24 @@ Este job realiza as seguintes etapas:
 Este job depende do job "build" e realiza as seguintes etapas:
 
  - Checkout do Código: 
- #imagem
+
+ ![Image](https://github.com/user-attachments/assets/421a4d71-70c0-43db-be9f-88fd582bd833)
 
  - Configuração das Credenciais AWS:
- #imagem
+
+![Image](https://github.com/user-attachments/assets/e58aea60-546c-4f14-847b-48d100b90c3e)
 
  - Instalação do Kubectl:
- #imagem
+
+![Image](https://github.com/user-attachments/assets/3d5f16d5-6e37-47a7-a118-11655c22fc9d)
 
  - Atualização do Kubeconfig:
- #imagem
+
+ ![Image](https://github.com/user-attachments/assets/6e836f19-fdbc-41be-8e26-35924dd33d1b)
 
  - Implantação no Kubernetes:
- #imagem
+
+![Image](https://github.com/user-attachments/assets/963c3627-318f-4796-95f9-157300c6eb47)
 
 ## 1. Contanerizar flowise usando docker e kubernetes
 ![kubernetes](imagens/kubernetes.png)
