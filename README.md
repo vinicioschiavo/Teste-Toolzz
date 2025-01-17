@@ -36,7 +36,7 @@ Visão Geral
 
  - Repositório ECR (Elastic Container Registry) para imagens Docker.
 
-## 2. Contanerizar flowise usando docker e kubernetes
+## 2. Criação de Namespaces no kubernetes para flowise
 ![kubernetes](imagens/kubernetes.png)
 
 1 - Passo a passo para a criação do Namespaces
