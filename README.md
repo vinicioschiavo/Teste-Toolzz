@@ -78,19 +78,19 @@ Jobs
 1. Build
 Este job realiza as seguintes etapas:
  - Checkout do Código:
- #imagem
+![Image](https://github.com/user-attachments/assets/421a4d71-70c0-43db-be9f-88fd582bd833)
 
- Configuração do Docker:
- #imagem
+ - Configuração do Docker:
+ ![Image](https://github.com/user-attachments/assets/24144b04-8ae6-4cf9-8935-ab32e29707ef)
 
- Configuração do Docker:
- #imagem
-
+  - Configuração do Credenciais-AWS:
+![Image](https://github.com/user-attachments/assets/e58aea60-546c-4f14-847b-48d100b90c3e)
+    
  Login no Amazon ECR:
- #imagem
+ ![Image](https://github.com/user-attachments/assets/ce0d75a6-43ca-4abd-b154-5f097d8d9f5d)
 
  Build e Push da Imagem Docker:
- #imagem
+ ![Image](https://github.com/user-attachments/assets/d5e9920e-71d8-4d4d-bf20-c9da6f576fee)
 
 2. Deploy
 Este job depende do job "build" e realiza as seguintes etapas:
