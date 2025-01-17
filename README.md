@@ -138,4 +138,17 @@ Este job depende do job "build" e realiza as seguintes etapas:
 ![Image](https://github.com/user-attachments/assets/963c3627-318f-4796-95f9-157300c6eb47)
 
 
+## 4. Validação do deploy via github action.
+
+![Image](https://github.com/user-attachments/assets/90daf18b-7bad-4683-b3d3-9947bb342fad)
+
+## 5. Validação do Flowise rodando localmente.
+
+![Image](https://github.com/user-attachments/assets/d9c88b6d-8c05-4456-bb1b-440e6713fefe)
+
+
+
+
+
+
 
