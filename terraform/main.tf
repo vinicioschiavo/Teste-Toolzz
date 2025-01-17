@@ -120,7 +120,7 @@ resource "aws_route_table_association" "private_2" {
 }
 
 resource "aws_instance" "public" {
-  ami           = "ami-01f8103a2082c0718" # Substitua por uma AMI válida
+  ami           = "ami-01f8103a2082c0718" 
   instance_type = "t3.medium"
   subnet_id     = aws_subnet.public_1.id
 
@@ -130,7 +130,7 @@ resource "aws_instance" "public" {
 }
 
 resource "aws_instance" "private" {
-  ami           = "ami-01f8103a2082c0718" # Substitua por uma AMI válida
+  ami           = "ami-01f8103a2082c0718" 
   instance_type = "t3.medium"
   subnet_id     = aws_subnet.private_1.id
 
@@ -218,14 +218,13 @@ resource "aws_iam_role_policy_attachment" "eks_node_AmazonEC2ContainerRegistryRe
   role       = aws_iam_role.eks_node_role.name
 }
 
-# Criar o banco de dados PostgreSQL no RDS
 resource "aws_db_instance" "postgres_db" {
   identifier        = "flowise-db"
   engine            = "postgres"
   engine_version    = "17.2"
   instance_class    = "db.t3.medium"
   allocated_storage = 20
-  db_name           = "flowise_db"  # Alterado de 'name' para 'db_name'
+  db_name           = "flowise_db"  
   username          = "flowise_admin"
   password          = "changeme123"
   db_subnet_group_name = aws_db_subnet_group.main.name
@@ -260,7 +259,6 @@ resource "aws_security_group" "db_sg" {
   }
 }
 
-# Criar o bucket S3 para armazenamento de backups
 resource "aws_s3_bucket" "flowise_backups" {
   bucket = "flowise-backups-bucket"
   force_destroy = true
@@ -268,92 +266,6 @@ resource "aws_s3_bucket" "flowise_backups" {
   tags = {
     Name = "flowise-backups"
   }
-}
-
-# Criar o Security Group para o ALB
-resource "aws_security_group" "alb_sg" {
-  name        = "alb-security-group"
-  description = "Security group for ALB"
-  vpc_id      = aws_vpc.main.id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "alb-security-group"
-  }
-}
-
-# Criar o ALB
-resource "aws_lb" "main" {
-  name               = "app-load-balancer"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = [aws_subnet.public_1.id, aws_subnet.public_2.id]
-
-  tags = {
-    Name = "app-load-balancer"
-  }
-}
-
-# Criar o Target Group
-resource "aws_lb_target_group" "main" {
-  name        = "app-target-group"
-  port        = 80
-  protocol    = "HTTP"
-  vpc_id      = aws_vpc.main.id
-  target_type = "instance"
-
-  health_check {
-    interval            = 30
-    path                = "/"
-    timeout             = 5
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-    matcher             = "200"
-  }
-
-  tags = {
-    Name = "app-target-group"
-  }
-}
-
-# Criar o Listener para o ALB
-resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.main.arn
-  port              = 80
-  protocol          = "HTTP"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.main.arn
-  }
-}
-
-# Associar Instâncias ao Target Group
-resource "aws_lb_target_group_attachment" "public_instance" {
-  target_group_arn = aws_lb_target_group.main.arn
-  target_id        = aws_instance.public.id
-  port             = 80
 }
 
 resource "aws_ecr_repository" "flowise_repo" {
